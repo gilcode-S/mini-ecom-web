@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
+use App\Models\Front;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class FrontController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,6 @@ class AdminController extends Controller
     public function index()
     {
         //
-
-        return view('admin.dashboard');
     }
 
     /**
@@ -24,7 +22,6 @@ class AdminController extends Controller
     public function create()
     {
         //
-        return view('admin.login');
     }
 
     /**
@@ -38,7 +35,7 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Admin $admin)
+    public function show(Front $front)
     {
         //
     }
@@ -46,7 +43,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Admin $admin)
+    public function edit(Front $front)
     {
         //
     }
@@ -54,7 +51,7 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, Front $front)
     {
         //
     }
@@ -62,7 +59,7 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Admin $admin)
+    public function destroy(Front $front)
     {
         //
     }

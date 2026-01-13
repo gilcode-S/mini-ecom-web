@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -9,6 +10,11 @@ Route::get('/', function () {
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('home');
+Route::prefix('admin')->group(function () {
+    Route::resource('dashboard', AdminController::class)->only(['index']);
+    // login routes
+    Route::get('login', [AdminController::class, 'create'])->name('admin.login');
+});
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -17,4 +23,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';
