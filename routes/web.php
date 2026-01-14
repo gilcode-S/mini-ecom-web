@@ -11,9 +11,13 @@ Route::get('/', function () {
     ]);
 })->name('home');
 Route::prefix('admin')->group(function () {
-    Route::resource('dashboard', AdminController::class)->only(['index']);
     // login routes
     Route::get('login', [AdminController::class, 'create'])->name('admin.login');
+
+    Route::group(['middleware' => ['admin']], function () {
+        //dashboard route
+        Route::resource('dashboard', AdminController::class)->only(['index']);
+    });
 });
 
 
