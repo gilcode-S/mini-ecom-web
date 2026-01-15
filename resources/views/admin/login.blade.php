@@ -22,7 +22,7 @@
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
-    <link rel="preload" href="{{asset('admin/css/adminlte.css')}}" as="style" />
+    <link rel="preload" href="{{ asset('admin/css/adminlte.css') }}" as="style" />
 
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
@@ -57,18 +57,27 @@
             </div>
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
-                <form action="../index3.html" method="post">
+                @if (Session::has('error message'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error:</strong> 
+                    {{Session::get('error message')}}
+                    <button type="button" class="btn-close" data-bs-dismiss='alert' aria-label="Close"></button>
+                </div>
+                    
+                @endif
+                <form action="{{ route('admin.login.request') }}" method="post">
+                    @csrf
                     <div class="input-group mb-1">
                         <div class="form-floating">
-                            <input id="loginEmail" type="email" class="form-control" value="" placeholder="" />
-                            <label for="loginEmail">Email</label>
+                            <input name="email" type="email" class="form-control" placeholder="Email" />
+                            <label>Email</label>
                         </div>
                         <div class="input-group-text"><span class="bi bi-envelope"></span></div>
                     </div>
                     <div class="input-group mb-1">
                         <div class="form-floating">
-                            <input id="loginPassword" type="password" class="form-control" placeholder="" />
-                            <label for="loginPassword">Password</label>
+                            <input name="password" type="password" class="form-control" placeholder="Password" />
+                            <label >Password</label>
                         </div>
                         <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
                     </div>
@@ -90,8 +99,6 @@
                     </div>
                     <!--end::Row-->
                 </form>
-               
-               
             </div>
             <!-- /.login-card-body -->
         </div>
@@ -106,7 +113,7 @@
     <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="{{asset('admin/js/adminlte.js')}}"></script>
+    <script src="{{ asset('admin/js/adminlte.js') }}"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
         const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
