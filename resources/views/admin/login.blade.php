@@ -58,13 +58,19 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
                 @if (Session::has('error message'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Error:</strong> 
-                    {{Session::get('error message')}}
-                    <button type="button" class="btn-close" data-bs-dismiss='alert' aria-label="Close"></button>
-                </div>
-                    
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error:</strong>
+                        {{ Session::get('error message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss='alert' aria-label="Close"></button>
+                    </div>
                 @endif
+                @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error!</strong> {{ $error }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endforeach
+
                 <form action="{{ route('admin.login.request') }}" method="post">
                     @csrf
                     <div class="input-group mb-1">
@@ -77,7 +83,7 @@
                     <div class="input-group mb-1">
                         <div class="form-floating">
                             <input name="password" type="password" class="form-control" placeholder="Password" />
-                            <label >Password</label>
+                            <label>Password</label>
                         </div>
                         <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
                     </div>
