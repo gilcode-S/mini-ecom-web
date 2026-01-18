@@ -46,7 +46,7 @@ class AdminController extends Controller
                 return redirect()->route('dashboard.index');
             }
         else {
-            return redirect()->back()->with('error_message', 'invalid Email or Password');
+            return redirect()->back()->with('error message', 'invalid Email or Password');
         }
         // if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
         //     return redirect('admin/dashboard');

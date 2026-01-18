@@ -50,7 +50,7 @@
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header">
-                <a href="../index2.html"
+                <a href="#"
                     class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover">
                     <h1 class="mb-0"><b>Admin</b>LTE</h1>
                 </a>
@@ -75,14 +75,17 @@
                     @csrf
                     <div class="input-group mb-1">
                         <div class="form-floating">
-                            <input name="email" type="email" class="form-control" placeholder="Email" />
+                            <input name="email" type="email" class="form-control" placeholder="Email"
+                                @if (isset($_COOKIE['email'])) value="{{ $_COOKIE['email'] }}" @endif />
+
                             <label>Email</label>
                         </div>
                         <div class="input-group-text"><span class="bi bi-envelope"></span></div>
                     </div>
                     <div class="input-group mb-1">
                         <div class="form-floating">
-                            <input name="password" type="password" class="form-control" placeholder="Password" />
+                            <input name="password" type="password" class="form-control" placeholder="Password"
+                                @if (isset($_COOKIE['password'])) value="{{ $_COOKIE['password'] }}" @endif />
                             <label>Password</label>
                         </div>
                         <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
@@ -91,8 +94,9 @@
                     <div class="row">
                         <div class="col-8 d-inline-flex align-items-center">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                <label class="form-check-label" for="flexCheckDefault"> Remember Me </label>
+                                <input class="form-check-input" type="checkbox"  id="remember"
+                                    name="remember" @if (isset($_COOKIE['email'])) checked="" @endif />
+                                <label class="form-check-label" for="remember"> Remember Me </label>
                             </div>
                         </div>
                         <!-- /.col -->
