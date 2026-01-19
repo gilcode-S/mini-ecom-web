@@ -20,6 +20,9 @@ Route::prefix('admin')->group(function () {
         Route::resource('dashboard', AdminController::class)->only(['index']);
         // logout
         Route::get('logout', [AdminController::class, 'destroy'])->name('admin.logout');
+
+        //update password route for admin
+        Route::get('update-password', [AdminController::class, 'edit'])->name('admin.update-password');
     });
 });
 

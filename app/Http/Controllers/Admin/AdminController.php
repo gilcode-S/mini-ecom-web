@@ -8,6 +8,8 @@ use App\Models\Admin;
 use App\Service\Admin\AdminService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 
 class AdminController extends Controller
 {
@@ -17,7 +19,7 @@ class AdminController extends Controller
     public function index()
     {
         //
-
+        Session::put('page', 'dashboard');
         return view('admin.dashboard');
     }
 
@@ -37,15 +39,13 @@ class AdminController extends Controller
     {
         //
         $data = $request->all();
-        
+
         $service = new AdminService();
         $loginStatus = $service->login($data);
 
-        if($loginStatus == 1)
-            {
-                return redirect()->route('dashboard.index');
-            }
-        else {
+        if ($loginStatus == 1) {
+            return redirect()->route('dashboard.index');
+        } else {
             return redirect()->back()->with('error message', 'invalid Email or Password');
         }
         // if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
@@ -69,6 +69,10 @@ class AdminController extends Controller
     public function edit(Admin $admin)
     {
         //
+        Session::put('page', 'update-password');
+        return view('admin.update-password', [
+            'email' => auth('admin')->user()->email
+        ]);
     }
 
     /**
