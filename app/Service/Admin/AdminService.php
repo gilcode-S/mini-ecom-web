@@ -3,6 +3,7 @@
 namespace App\Service\Admin;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminService
 {
@@ -24,5 +25,15 @@ class AdminService
         }
 
         return $loginStatus;
+    }
+
+    // verify password service FN
+      public function verifyPassword($data)
+    {
+        if (Hash::check($data['current_pwd'], Auth::guard('admin')->user()->password)) {
+            return 'true';
+        } else {
+            return 'false';
+        }
     }
 }

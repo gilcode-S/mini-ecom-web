@@ -8,11 +8,27 @@ use App\Models\Admin;
 use App\Service\Admin\AdminService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Session;
 
 
 class AdminController extends Controller
 {
+    //protect adminservice by injection
+    protected $adminService;
+
+    // inject admin service FN
+    public function __construct(AdminService $adminService)
+    {
+        $this->adminService = $adminService;
+    }
+
+    // verify password FN
+    public function verifyPassword(Request $request)
+    {
+        $data =$request->all();
+        return $this->adminService->verifyPassword($data);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -40,8 +56,8 @@ class AdminController extends Controller
         //
         $data = $request->all();
 
-        $service = new AdminService();
-        $loginStatus = $service->login($data);
+
+        $loginStatus = $this->adminService->login($data);
 
         if ($loginStatus == 1) {
             return redirect()->route('dashboard.index');

@@ -55,22 +55,25 @@
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email address</label>
                                         <input type="email" class="form-control" id="email" name="email"
-                                            aria-describedby="emailHelp" value="{{ auth('admin')->user()->email }}"readonly />
+                                            aria-describedby="emailHelp"
+                                            value="{{ auth('admin')->user()->email }}"readonly />
                                         <div id="emailHelp" class="form-text">
                                             We'll never share your email with anyone else.
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Current Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" />
+                                        <input type="password" class="form-control" id="current_pwd" name="current_pwd" />
+                                        <span id="verifyPwd"></span>
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">New Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" />
+                                        <input type="password" class="form-control" id="new_pwd" name="new_pwd" />
                                     </div>
-                                     <div class="mb-3">
+                                    <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" />
+                                        <input type="password" class="form-control" id="confirm_pwd"
+                                            name="confirm_pwd" />
                                     </div>
                                 </div>
                                 <!--end::Body-->
@@ -81,7 +84,7 @@
                                 <!--end::Footer-->
                             </form>
                             <!--end::Form-->
-                        
+
                             <!--end::Form-->
                             <!--begin::JavaScript-->
                             <script>

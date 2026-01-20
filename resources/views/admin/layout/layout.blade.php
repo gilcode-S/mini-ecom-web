@@ -22,6 +22,8 @@
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
+    {{-- csrf token validation --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="preload" href="./css/adminlte.css" as="style" />
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
