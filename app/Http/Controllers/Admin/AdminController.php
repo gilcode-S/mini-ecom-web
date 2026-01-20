@@ -26,8 +26,8 @@ class AdminController extends Controller
     // verify password FN
     public function verifyPassword(Request $request)
     {
-        $data =$request->all();
-        return $this->adminService->verifyPassword($data);
+       $data = $request->all();
+       return $this->adminService->verifyPassword($data);
     }
     /**
      * Display a listing of the resource.
