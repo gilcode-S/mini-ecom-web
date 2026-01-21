@@ -28,6 +28,10 @@ Route::prefix('admin')->group(function () {
         Route::post('verify-password', [AdminController::class, 'verifyPassword'])->name('admin.verify-password');
         // update password route
         Route::post('admin/update-password', [AdminController::class, 'updatePassword'])->name('admin.update-password.request');
+        // updating admin details
+        Route::get('update-details', [AdminController::class, 'editDetails'])->name('admin.update-details');
+        Route::post('update-details', [AdminController::class, 'updateDetails'])->name('admin.update-details.request');
+        
     });
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\DetailRequest;
 use App\Http\Requests\Admin\LoginRequest;
 use App\Http\Requests\Admin\PasswordRequest;
 use App\Models\Admin;
@@ -46,6 +47,22 @@ class AdminController extends Controller
                 }
             }
     }
+
+    public function editDetails()
+    {
+        Session::put('page', 'update-details');
+        return view('admin.update-details');
+    }
+
+    public function updateDetails(DetailRequest $request)
+    {
+         Session::put('page', 'update-details');
+        if ($request->isMethod('post')) {
+            $this->adminService->updateDetails($request);
+            return redirect()->back()->with('success_message', 'Admin details updated successfully');
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -2,9 +2,11 @@
 
 namespace App\Service\Admin;
 
+
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
 
 class AdminService
 {
@@ -57,5 +59,12 @@ class AdminService
         }
 
         return ['status' => $status, 'message' => $message];
+    }
+
+
+    public function updateDetails( $request)
+    {
+        $data = $request->all();
+        Admin::where('email', Auth::guard('admin')->user()->email)->update(['name' => $data['name'], 'mobile' => $data['mobile']]);
     }
 }

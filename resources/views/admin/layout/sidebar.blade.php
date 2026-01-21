@@ -43,6 +43,13 @@
                                  <p>Update Password</p>
                              </a>
                          </li>
+                           <li class="nav-item">
+                             <a href="{{ url('admin/update-details') }}"
+                                 class="nav-link {{ Session::get('page') == 'update-details' ? 'active' : '' }}">
+                                 <i class="nav-icon bi bi-circle"></i>
+                                 <p>Update Admin Details</p>
+                             </a>
+                         </li>
                          
                      </ul>
                  </li>
