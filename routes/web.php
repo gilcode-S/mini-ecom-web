@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -21,10 +22,12 @@ Route::prefix('admin')->group(function () {
         // logout
         Route::get('logout', [AdminController::class, 'destroy'])->name('admin.logout');
 
-        //update password route for admin
+        //display password route for admin
         Route::get('update-password', [AdminController::class, 'edit'])->name('admin.update-password');
         // handle verify password
         Route::post('verify-password', [AdminController::class, 'verifyPassword'])->name('admin.verify-password');
+        // update password route
+        Route::post('admin/update-password', [AdminController::class, 'updatePassword'])->name('admin.update-password.request');
     });
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LoginRequest;
+use App\Http\Requests\Admin\PasswordRequest;
 use App\Models\Admin;
 use App\Service\Admin\AdminService;
 use Illuminate\Http\Request;
@@ -28,6 +29,22 @@ class AdminController extends Controller
     {
        $data = $request->all();
        return $this->adminService->verifyPassword($data);
+    }
+
+    // update password
+    public function updatePassword(PasswordRequest $request)
+    {
+        if($request->isMethod('post'))
+            {
+                $data = $request->input();
+
+                $pwdStatus = $this->adminService->updatePassword($data);
+                if($pwdStatus['status'] == "success"){
+                    return redirect()->back()->with('success_message', $pwdStatus['message']);
+                } else {
+                    return redirect()->back()->with('error_message', $pwdStatus['message']);
+                }
+            }
     }
     /**
      * Display a listing of the resource.
