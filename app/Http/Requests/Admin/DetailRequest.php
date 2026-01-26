@@ -24,7 +24,8 @@ class DetailRequest extends FormRequest
         return [
             //
             'name' => 'required|string|max:255',
-            'mobile' => 'required|numeric|digits:11'
+            'mobile' => 'required|numeric|digits:11',
+            'image' => 'image'
         ];
     }
 
@@ -37,6 +38,7 @@ class DetailRequest extends FormRequest
             'mobile.required' => 'Mobile number is required',
             'mobile.numeric' => 'Mobile number must be numeric',
             'mobile.digits' => 'Mobile number must be 11 digits',
+            'image.image' => 'Valid image file is required'
         ];
     }
 }

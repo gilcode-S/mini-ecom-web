@@ -6,7 +6,9 @@ namespace App\Service\Admin;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Image;
+use Intervention\Image\ImageManager;
 
 class AdminService
 {
@@ -62,9 +64,34 @@ class AdminService
     }
 
 
-    public function updateDetails( $request)
+    public function updateDetails($request)
     {
+
         $data = $request->all();
-        Admin::where('email', Auth::guard('admin')->user()->email)->update(['name' => $data['name'], 'mobile' => $data['mobile']]);
+        $imageName = $data['current_image'] ?? null;
+
+        // upload admin image
+        if ($request->hasFile('image')) {
+            $image_tmp = $request->file('image');
+
+            if ($image_tmp->isValid()) {
+
+                $manager = new ImageManager(new Driver());
+                $image = $manager->read($image_tmp);
+
+                $extension = $image_tmp->getClientOriginalExtension();
+                $imageName = rand(111, 999999) . '.' . $extension;
+
+                $image_path = public_path('admin/images/photos/' . $imageName);
+                $image->save($image_path);
+            }
+        }
+
+        // update admin details
+        Admin::where('id', Auth::guard('admin')->user()->id)->update([
+            'name'   => $data['name'],
+            'mobile' => $data['mobile'],
+            'image'  => $imageName,
+        ]);
     }
 }

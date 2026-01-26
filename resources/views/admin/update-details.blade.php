@@ -72,7 +72,7 @@
                                 </div>
                             @endforeach
 
-                            <form method="POST" action="{{ route('admin.update-details.request') }}">
+                            <form method="POST" action="{{ route('admin.update-details.request') }}" enctype="multipart/form-data">
                                 @csrf
                                 <!--begin::Body-->
                                 <div class="card-body">
@@ -93,6 +93,17 @@
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Mobile Number</label>
                                         <input type="text" class="form-control" id="mobile" name="mobile" value="{{ auth('admin')->user()->mobile }}"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="image" class="form-label">Image</label>
+                                        <input type="file" class="form-control" id="image" name="image" accept="image">
+                                        @if (!empty(Auth::guard('admin')->user()->image))
+                                        <div id="profileImageBlock">
+                                            <a target="_blank" href="{{url('admin/images/photos/'.Auth::guard('admin')->user()->image)}}">View</a>
+                                            <a href="javascript:void(0);" id="deleteProfileImage" data-admin-id="{{Auth::guard('admin')->user()->id}}" class="text-danger">Delete</a>
+                                        </div>
+                                            
+                                        @endif
                                     </div>
                                   
                                 </div>
