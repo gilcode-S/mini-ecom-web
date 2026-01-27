@@ -16,7 +16,7 @@
            <ul class="navbar-nav ms-auto">
 
                <!--begin::Messages Dropdown Menu-->
-              
+
                <!--end::Messages Dropdown Menu-->
                <!--begin::Notifications Dropdown Menu-->
 
@@ -32,15 +32,17 @@
                <!--begin::User Menu Dropdown-->
                <li class="nav-item dropdown user-menu">
                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                       <img src="{{ asset('/admin/images/user2-160x160.jpg') }}" alt="User Avatar"
-                           class="img-size-50 rounded-circle me-3" />
+                       <img @if (!empty(Auth::guard('admin')->user()->image)) src="{{ asset('/admin/images/photos/' . Auth::guard('admin')->user()->image) }}" @else src="{{ asset('/admin/images/user2-160x160.jpg') }}" @endif
+                            alt="User Avatar"
+                           class="img-size-50 rounded-circle me-3 user-image rounded-circle shadow" />
                        <span class="d-none d-md-inline">{{ Auth::guard('admin')->user()->name }}</span>
                    </a>
                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                        <!--begin::User Image-->
                        <li class="user-header text-bg-primary">
-                           <img src="{{ asset('/admin/images/user2-160x160.jpg') }}" class="rounded-circle shadow"
-                               alt="User Image" />
+                           <img @if (!empty(Auth::guard('admin')->user()->image)) src="{{ asset('/admin/images/photos/' . Auth::guard('admin')->user()->image) }}" @else src="{{ asset('/admin/images/user2-160x160.jpg') }}" @endif
+                            alt="User Avatar"
+                           class="img-size-50 rounded-circle me-3 user-image rounded-circle shadow"/>
                            <p>
                                {{ Auth::guard('admin')->user()->name }}
                                <small>{{ Auth::guard('admin')->user()->created_at }}</small>

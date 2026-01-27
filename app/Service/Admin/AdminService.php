@@ -94,4 +94,24 @@ class AdminService
             'image'  => $imageName,
         ]);
     }
+
+
+    public function deleteProfileImage($adminId)
+    {
+        $profileImage = Admin::where('id', $adminId)->value('image');
+        if($profileImage){
+            $profile_image_path = 'admin/images/photos/' . $profileImage;
+
+            if(file_exists(public_path($profile_image_path)))
+                {
+                    unlink(public_path($profile_image_path));   
+                }
+            // update admin image field to empty
+            Admin::where('id', $adminId)->update(['image' => null]);
+            return ['status' => true, "message" => 'Profile image deleted successfully'];
+        }
+        return ['status' => false, "message" => 'Profile image not found'];
+    }
 }
+
+

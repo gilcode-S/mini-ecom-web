@@ -63,6 +63,12 @@ class AdminController extends Controller
         }
     }
 
+    public function deleteProfileImage(Request $request){
+        $status = $this->adminService->deleteProfileImage($request->admin_id);
+        return response()->json($status);
+    }
+    
+
     /**
      * Display a listing of the resource.
      */
