@@ -148,4 +148,13 @@ class AdminController extends Controller
         Auth::guard('admin')->logout();
         return redirect()->route('admin.login');
     }
+
+    // subadmins function
+    public function subadmins()
+    {   
+        Session::put('page', 'subadmins');
+        $subadmins = $this->adminService->subadmins();
+
+        return view('admin.subadmins.subadmins', compact('subadmins'));
+    }
 }

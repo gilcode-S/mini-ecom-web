@@ -33,7 +33,10 @@ Route::prefix('admin')->group(function () {
         Route::post('update-details', [AdminController::class, 'updateDetails'])->name('admin.update-details.request');
         // delete admin image route
         Route::post('delete-profile-image', [AdminController::class, 'deleteProfileImage']);
-        
+
+
+        // subadmins routes
+        Route::get('subadmins', [AdminController::class, 'subadmins'])->name('admin.subadmins');
     });
 });
 
