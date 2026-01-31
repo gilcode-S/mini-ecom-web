@@ -157,4 +157,20 @@ class AdminController extends Controller
 
         return view('admin.subadmins.subadmins', compact('subadmins'));
     }
+
+    public function updateSubadminStatus(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            $status = $this->adminService->updateSubadminStatus($data);
+            return response()->json(['status' => $status, 'subadmin_id' => $data['subadmin_id']]);
+        }
+    }
+    public function deleteSubadmin($id){
+        Admin::where('id', $id)->delete();
+        return redirect()->back()->with(
+        'success_message',
+        'Subadmin deleted successfully'
+    );
+    }
 }

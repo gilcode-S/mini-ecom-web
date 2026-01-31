@@ -37,6 +37,8 @@ Route::prefix('admin')->group(function () {
 
         // subadmins routes
         Route::get('subadmins', [AdminController::class, 'subadmins'])->name('admin.subadmins');
+        Route::post('update-subadmin-status', [AdminController::class, 'updateSubadminStatus']);
+        Route::get('delete-subadmin/{id}', [AdminController::class, 'deleteSubadmin'])->name('admmin.delete-subadmin');
     });
 });
 

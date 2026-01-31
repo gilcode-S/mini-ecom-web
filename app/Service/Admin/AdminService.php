@@ -119,4 +119,10 @@ class AdminService
         $subadmins = Admin::where('role', 'subadmin')->get();
         return $subadmins;
     }
+
+    public function updateSubadminStatus($data) {
+        $status = ($data['status'] == "Active") ? 0 : 1;
+        Admin::where('id', $data['subadmin_id'])->update(['status' => $status]);
+        return $status;
+    }
 }
