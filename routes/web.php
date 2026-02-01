@@ -39,6 +39,9 @@ Route::prefix('admin')->group(function () {
         Route::get('subadmins', [AdminController::class, 'subadmins'])->name('admin.subadmins');
         Route::post('update-subadmin-status', [AdminController::class, 'updateSubadminStatus']);
         Route::get('delete-subadmin/{id}', [AdminController::class, 'deleteSubadmin'])->name('admmin.delete-subadmin');
+        Route::get('add-edit-subadmin/{id?}', [AdminController::class, 'addEditSubadmin'])->name('admin.add-edit-subadmin');
+        // add/edit subadmin submit
+        Route::post('add-edit-subadmin/{id?}', [AdminController::class, 'addEditSubadminRequest']);
     });
 });
 

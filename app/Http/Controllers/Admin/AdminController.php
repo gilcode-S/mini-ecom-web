@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DetailRequest;
 use App\Http\Requests\Admin\LoginRequest;
 use App\Http\Requests\Admin\PasswordRequest;
+use App\Http\Requests\Admin\SubadminRequest;
 use App\Models\Admin;
 use App\Service\Admin\AdminService;
 use Illuminate\Http\Request;
@@ -28,24 +29,23 @@ class AdminController extends Controller
     // verify password FN
     public function verifyPassword(Request $request)
     {
-       $data = $request->all();
-       return $this->adminService->verifyPassword($data);
+        $data = $request->all();
+        return $this->adminService->verifyPassword($data);
     }
 
     // update password
     public function updatePassword(PasswordRequest $request)
     {
-        if($request->isMethod('post'))
-            {
-                $data = $request->input();
+        if ($request->isMethod('post')) {
+            $data = $request->input();
 
-                $pwdStatus = $this->adminService->updatePassword($data);
-                if($pwdStatus['status'] == "success"){
-                    return redirect()->back()->with('success_message', $pwdStatus['message']);
-                } else {
-                    return redirect()->back()->with('error_message', $pwdStatus['message']);
-                }
+            $pwdStatus = $this->adminService->updatePassword($data);
+            if ($pwdStatus['status'] == "success") {
+                return redirect()->back()->with('success_message', $pwdStatus['message']);
+            } else {
+                return redirect()->back()->with('error_message', $pwdStatus['message']);
             }
+        }
     }
 
     public function editDetails()
@@ -56,18 +56,19 @@ class AdminController extends Controller
 
     public function updateDetails(DetailRequest $request)
     {
-         Session::put('page', 'update-details');
+        Session::put('page', 'update-details');
         if ($request->isMethod('post')) {
             $this->adminService->updateDetails($request);
             return redirect()->back()->with('success_message', 'Admin details updated successfully');
         }
     }
 
-    public function deleteProfileImage(Request $request){
+    public function deleteProfileImage(Request $request)
+    {
         $status = $this->adminService->deleteProfileImage($request->admin_id);
         return response()->json($status);
     }
-    
+
 
     /**
      * Display a listing of the resource.
@@ -99,9 +100,13 @@ class AdminController extends Controller
 
         $loginStatus = $this->adminService->login($data);
 
-        if ($loginStatus == 1) {
+        if ($loginStatus == 'success') {
             return redirect()->route('dashboard.index');
-        } else {
+        } else if($loginStatus == 'inactive'){
+            return redirect()->back()->with('error_message', "Your admin account is inactive. Please contact the administrator");
+        }
+
+        else {
             return redirect()->back()->with('error message', 'invalid Email or Password');
         }
         // if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
@@ -151,7 +156,7 @@ class AdminController extends Controller
 
     // subadmins function
     public function subadmins()
-    {   
+    {
         Session::put('page', 'subadmins');
         $subadmins = $this->adminService->subadmins();
 
@@ -160,17 +165,39 @@ class AdminController extends Controller
 
     public function updateSubadminStatus(Request $request)
     {
-        if($request->ajax()){
+        if ($request->ajax()) {
             $data = $request->all();
             $status = $this->adminService->updateSubadminStatus($data);
             return response()->json(['status' => $status, 'subadmin_id' => $data['subadmin_id']]);
         }
     }
-    public function deleteSubadmin($id){
+    public function deleteSubadmin($id)
+    {
         Admin::where('id', $id)->delete();
         return redirect()->back()->with(
-        'success_message',
-        'Subadmin deleted successfully'
-    );
+            'success_message',
+            'Subadmin deleted successfully'
+        );
+    }
+
+    public function addEditSubadmin($id = null)
+    {
+        if ($id == "") {
+            $title = "Add Subadmin";
+            $subadmindata = array();
+        } else {
+            $title = "Edit Subadmin";
+            $subadmindata = Admin::find($id);
+        }
+
+        return view('admin.subadmins.add_edit_subadmin')->with(compact('title', 'subadmindata'));
+    }
+
+     public function addEditSubadminRequest(SubadminRequest $request)
+    {
+        if($request->isMethod('post')) {
+            $result = $this->adminService->addEditSubadminRequest($request);
+            return redirect('admin/subadmins')->with('success_message', $result['message']);
+        }
     }
 }

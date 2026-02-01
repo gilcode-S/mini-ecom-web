@@ -24,7 +24,8 @@
     <meta name="supported-color-schemes" content="light dark" />
     {{-- csrf token validation --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="preload" href="./css/adminlte.css" as="style" />
+    <link rel="stylesheet" href="{{ asset('admin/css/adminlte.css') }}">
+   
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
     @include('admin.layout.styles')
