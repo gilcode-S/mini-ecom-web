@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\LoginRequest;
 use App\Http\Requests\Admin\PasswordRequest;
 use App\Http\Requests\Admin\SubadminRequest;
 use App\Models\Admin;
+use App\Models\AdminsRole;
 use App\Service\Admin\AdminService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -199,5 +200,26 @@ class AdminController extends Controller
             $result = $this->adminService->addEditSubadminRequest($request);
             return redirect('admin/subadmins')->with('success_message', $result['message']);
         }
+    }
+
+    // update role persmissions
+    public function updateRole($id)
+    {
+        $subadminRoles = AdminsRole::where('subadmin_id', $id)->get()->toArray();
+        $subadminDetails = Admin::where("id", $id)->first()->toArray();
+        $modules = ['categories', 'products', 'orders', 'users'];
+        $title = "Update ". $subadminDetails['name']. "Subadmin Roles/Permissions";
+        return view('admin.subadmins.update_roles')->with(compact('title', 'id', 'subadminRoles', 'modules'));
+    }
+
+    public function updateRoleRequest(Request $request)
+    {
+        if($request->isMethod('post'))
+            {
+                $data = $request->all();
+                $service = new AdminService();
+                $result = $service->updateRole($request);
+                return redirect()->back()->with('success_message', $result['message']);
+            }
     }
 }

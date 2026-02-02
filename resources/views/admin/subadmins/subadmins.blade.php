@@ -63,7 +63,10 @@
                                                       <i class="fa-solid fa-toggle-off" data-status="Inactive"></i></a>
                                                         
                                                 @endif
-                                                &nbsp;&nbsp;<a style="color:red" href="{{url('admin/delete-subadmin/'.$subadmin->id)}}" title="Delete Subadmin"><i class="fa-solid fa-trash"></i></a>&nbsp;&nbsp; <a href="{{url('admin/add-edit-subadmin/'.$subadmin->id)}}"><i class="fa-solid fa-user-pen"></i></a>
+                                                &nbsp;&nbsp;<a style="color:red" href="{{url('admin/delete-subadmin/'.$subadmin->id)}}" title="Delete Subadmin"><i class="fa-solid fa-trash"></i></a>&nbsp;&nbsp; 
+                                                <a title="Set Permission for sub-admin" href="{{url('admin/update-role/'.$subadmin->id)}}"><i class="fa-solid fa-unlock"></i></a>&nbsp;&nbsp;
+                                                
+                                                <a href="{{url('admin/add-edit-subadmin/'.$subadmin->id)}}"><i class="fa-solid fa-user-pen"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
